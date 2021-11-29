@@ -2,77 +2,77 @@
 #include "List.h"
 
 template <typename T>
-class Stack
+class Queue
 {
     private : 
         List<T> *m_my_list ; 
     public :
-        Stack() ;
-        Stack(const Stack<T> &s) ; 
-        ~Stack() ; 
+        Queue() ;
+        Queue(const Queue<T> &s) ; 
+        ~Queue() ; 
     public : 
         bool Empty() const ; 
         int Size() const ; 
         void Push(const T &&t) ; 
         void Pop() ;
         T &Top() const ; 
-        Stack &operator = (const Stack<T> &s) ; 
+        Queue &operator = (const Queue<T> &s) ; 
 } ;
 
 template <typename T>
-Stack<T>::Stack()
+Queue<T>::Queue()
     : m_my_list(new List<T>) 
 {
     
 }
 
 template <typename T>
-Stack<T>::Stack(const Stack<T> &s)
-    : Stack()
+Queue<T>::Queue(const Queue<T> &s)
+    : Queue()
 {
     *this = s ; 
 }
 
 template <typename T>
-Stack<T>::~Stack()
+Queue<T>::~Queue()
 {
     delete m_my_list ; 
 }
 
 template <typename T>
-bool Stack<T>::Empty() const 
+bool Queue<T>::Empty() const 
 {
     return (m_my_list->m_size == 0) ? true : false ; 
 }
 
 template <typename T>
-int Stack<T>::Size() const 
+int Queue<T>::Size() const 
 {
     return m_my_list->m_size ; 
 }
 
 template <typename T>
-void Stack<T>::Push(const T &&t)
+void Queue<T>::Push(const T &&t)
 {
     m_my_list->PushFront((T)t) ; 
 }
 
 template <typename T>
-void Stack<T>::Pop() 
+void Queue<T>::Pop() 
 {
-    m_my_list->PopFront() ; 
+    m_my_list->PopBack() ; 
 }
 
 template <typename T>
-T &Stack<T>::Top() const 
+T &Queue<T>::Top() const 
 {
-    return m_my_list->Front() ;
+    return m_my_list->Back() ;
 } 
 
 template <typename T>
-Stack<T> &Stack<T>::operator = (const Stack<T> &s)
+Queue<T> &Queue<T>::operator = (const Queue<T> &s)
 {
-    this->m_my_list->operator=(*s.m_my_list) ;
+    this->m_my_list->operator=(*s.m_my_list) ; 
     return *this ; 
 }
 
