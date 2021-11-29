@@ -5,8 +5,7 @@ template <typename T>
 class Stack
 {
     private : 
-        int m_size ; 
-        List<T> m_my_list ; 
+        List<T> *m_my_list ; 
     public :
         Stack() ;
         Stack(const Stack<T> &s) ; 
@@ -22,56 +21,58 @@ class Stack
 
 template <typename T>
 Stack<T>::Stack()
-    : m_size(0), m_my_list(new List<T>) 
+    : m_my_list(new List<T>) 
 {
     
 }
 
 template <typename T>
 Stack<T>::Stack(const Stack<T> &s)
+    : Stack()
 {
-    this->m_my_list = s.m_my_list ; 
+    *this = s ; 
 }
 
 template <typename T>
 Stack<T>::~Stack()
 {
-
+    delete m_my_list ; 
 }
 
 template <typename T>
 bool Stack<T>::Empty() const 
 {
-    return (m_size == 0) ? true : false ; 
+    return (m_my_list->m_size == 0) ? true : false ; 
 }
 
 template <typename T>
 int Stack<T>::Size() const 
 {
-    return m_size ; 
+    return m_my_list->m_size ; 
 }
 
 template <typename T>
 void Stack<T>::Push(const T &&t)
 {
-    
+    m_my_list->PushFront((T)t) ; 
 }
 
 template <typename T>
 void Stack<T>::Pop() 
 {
-
+    m_my_list->PopFront() ; 
 }
 
 template <typename T>
 T &Stack<T>::Top() const 
 {
-
+    return m_my_list->Front() ;
 } 
 
 template <typename T>
 Stack<T> &Stack<T>::operator = (const Stack<T> &s)
 {
-
+    this->m_my_list->operator=(*s.m_my_list) ; // ??
+    return *this ; 
 }
 

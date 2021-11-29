@@ -12,7 +12,7 @@ class List
         void Link(Node<T> &next_node, Node<T> &new_node, Node<T> &prev_node) ; 
     public :
         explicit List(int size = 0) ;
-        List(int size, T &&t) ; 
+        List(int size, const T &&t) ; 
         List(const List<T> &l) ; 
         ~List() ; 
     public :
@@ -20,8 +20,8 @@ class List
         bool Empty() const ; 
         T &Front() const ; 
         T &Back() const ;
-        void PushFront(T &&t) ; 
-        void PushBack(T &&t) ; 
+        void PushFront(const T &&t) ; 
+        void PushBack(const T &&t) ; 
         void PopFront() ; 
         void PopBack() ; 
         List &operator = (const List<T> &l) ; 
@@ -36,14 +36,12 @@ List<T>::List(int size)
 }
 
 template <typename T>
-List<T>::List(int size, T &&t)
-    : List(size)
+List<T>::List(int size, const T &&t)
+    : List()
 {
     for(int i = 0 ; i < size ; i++)
     {
-        Node<T> *new_node = new Node<T>(t) ; 
-        Node<T> *prev_node = m_trailer->prev ; 
-        Link(*prev_node, *new_node, *m_trailer) ; 
+        PushBack((T)t) ; 
     }
 }
 
@@ -99,7 +97,7 @@ T &List<T>::Back() const
 }
 
 template <typename T>
-void List<T>::PushFront(T &&t) 
+void List<T>::PushFront(const T &&t) 
 {
     Node<T> *new_node = new Node<T>(t) ; 
     Node<T> *prev_node = m_header->next ; 
@@ -108,7 +106,7 @@ void List<T>::PushFront(T &&t)
 }
 
 template <typename T>
-void List<T>::PushBack(T &&t) 
+void List<T>::PushBack(const T &&t) 
 {
     Node<T> *new_node = new Node<T>(t) ; 
     Node<T> *prev_node = m_trailer->prev ; 

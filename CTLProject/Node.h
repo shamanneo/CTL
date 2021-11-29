@@ -8,7 +8,7 @@ struct Node
     Node<T> *prev ; 
 
     Node() ;
-    Node(T &t) ; 
+    Node(const T &t) ; 
 } ;
 
 template <typename T>
@@ -19,7 +19,7 @@ Node<T>::Node()
 }
 
 template <typename T>
-Node<T>::Node(T &t)
+Node<T>::Node(const T &t)
 {
     data = t ; 
     next = nullptr ; 
