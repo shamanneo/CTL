@@ -1,12 +1,12 @@
 #pragma once
-#include "Node.h"
+#include "List.h"
 
 template <typename T>
 class Stack
 {
     private : 
         int m_size ; 
-        Node<T> *m_head ; 
+        List<T> m_my_list ; 
     public :
         Stack() ;
         Stack(const Stack<T> &s) ; 
@@ -22,15 +22,15 @@ class Stack
 
 template <typename T>
 Stack<T>::Stack()
+    : m_size(0), m_my_list(new List<T>) 
 {
-    m_size = 0 ; 
-    m_head = nullptr ; 
+    
 }
 
 template <typename T>
 Stack<T>::Stack(const Stack<T> &s)
 {
-    this = s ; 
+    this->m_my_list = s.m_my_list ; 
 }
 
 template <typename T>
@@ -72,7 +72,6 @@ T &Stack<T>::Top() const
 template <typename T>
 Stack<T> &Stack<T>::operator = (const Stack<T> &s)
 {
-    this->m_head = s.m_head ; 
-    return this ; 
+
 }
 

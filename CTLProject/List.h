@@ -24,6 +24,7 @@ class List
         void PushBack(T &&t) ; 
         void PopFront() ; 
         void PopBack() ; 
+        List &operator = (const List<T> &l) ; 
 } ; 
 
 template <typename T>
@@ -47,17 +48,10 @@ List<T>::List(int size, T &&t)
 }
 
 template <typename T>
-List<T>::List(const List<T> &t)
-    : List(t.m_size) 
+List<T>::List(const List<T> &l)
+    : List(l.m_size) 
 {   
-    Node<T> *temp = t.m_header->next ; 
-    for(int i = 0 ; i < t.m_size ; i++) 
-    {
-        Node<T> *new_node = new Node<T>(temp->data) ; 
-        Node<T> *prev_node = m_trailer->prev ; 
-        Link(*prev_node, *new_node, *m_trailer) ; 
-        temp = temp->next ; 
-    }
+    *this = l ; 
 }
 
 template <typename T>
@@ -148,4 +142,19 @@ void List<T>::PopBack()
     temp->prev->next = m_trailer ; 
     delete temp ; 
     m_size-- ; 
+}
+
+template <typename T>
+List<T> &List<T>::operator = (const List<T> &l) 
+{
+    this->m_size = l.m_size ; 
+    Node<T> *temp = l.m_header->next ; 
+    for(int i = 0 ; i < l.m_size ; i++) 
+    {
+        Node<T> *new_node = new Node<T>(temp->data) ; 
+        Node<T> *prev_node = m_trailer->prev ; 
+        Link(*prev_node, *new_node, *m_trailer) ; 
+        temp = temp->next ; 
+    }
+    return *this ; 
 }
