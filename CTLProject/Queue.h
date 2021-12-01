@@ -8,7 +8,7 @@ class Queue
         List<T> *m_my_list ; 
     public :
         Queue() ;
-        Queue(const Queue<T> &s) ; 
+        Queue(const Queue<T> &other) ; 
         ~Queue() ; 
     public : 
         bool Empty() const ; 
@@ -16,7 +16,7 @@ class Queue
         void Push(const T &&t) ; 
         void Pop() ;
         T &Top() const ; 
-        Queue &operator = (const Queue<T> &s) ; 
+        Queue &operator = (const Queue<T> &other) ; 
 } ;
 
 template <typename T>
@@ -27,10 +27,10 @@ Queue<T>::Queue()
 }
 
 template <typename T>
-Queue<T>::Queue(const Queue<T> &s)
+Queue<T>::Queue(const Queue<T> &other)
     : Queue()
 {
-    *this = s ; 
+    *this = other ; 
 }
 
 template <typename T>
@@ -70,9 +70,9 @@ T &Queue<T>::Top() const
 } 
 
 template <typename T>
-Queue<T> &Queue<T>::operator = (const Queue<T> &s)
+Queue<T> &Queue<T>::operator = (const Queue<T> &other)
 {
-    this->m_my_list->operator=(*s.m_my_list) ; 
+    this->m_my_list->operator=(*other.m_my_list) ; 
     return *this ; 
 }
 

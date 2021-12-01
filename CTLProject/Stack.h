@@ -8,7 +8,7 @@ class Stack
         List<T> *m_my_list ; 
     public :
         Stack() ;
-        Stack(const Stack<T> &s) ; 
+        Stack(const Stack<T> &other) ; 
         ~Stack() ; 
     public : 
         bool Empty() const ; 
@@ -16,7 +16,7 @@ class Stack
         void Push(const T &&t) ; 
         void Pop() ;
         T &Top() const ; 
-        Stack &operator = (const Stack<T> &s) ; 
+        Stack &operator = (const Stack<T> &other) ; 
 } ;
 
 template <typename T>
@@ -27,10 +27,10 @@ Stack<T>::Stack()
 }
 
 template <typename T>
-Stack<T>::Stack(const Stack<T> &s)
+Stack<T>::Stack(const Stack<T> &other)
     : Stack()
 {
-    *this = s ; 
+    *this = other ; 
 }
 
 template <typename T>
@@ -70,9 +70,9 @@ T &Stack<T>::Top() const
 } 
 
 template <typename T>
-Stack<T> &Stack<T>::operator = (const Stack<T> &s)
+Stack<T> &Stack<T>::operator = (const Stack<T> &other)
 {
-    this->m_my_list->operator=(*s.m_my_list) ;
+    this->m_my_list->operator=(*other.m_my_list) ;
     return *this ; 
 }
 

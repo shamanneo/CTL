@@ -13,7 +13,7 @@ class List
     public :
         explicit List(int size = 0) ;
         List(int size, const T &&t) ; 
-        List(const List<T> &l) ; 
+        List(const List<T> &other) ; 
         ~List() ; 
     public :
         int Size() const ;
@@ -24,7 +24,8 @@ class List
         void PushBack(const T &&t) ; 
         void PopFront() ; 
         void PopBack() ; 
-        List &operator = (const List<T> &l) ; 
+        void Clear() ; 
+        List &operator = (const List<T> &other) ; 
 } ; 
 
 template <typename T>
@@ -46,10 +47,10 @@ List<T>::List(int size, const T &&t)
 }
 
 template <typename T>
-List<T>::List(const List<T> &l)
-    : List(l.m_size) 
+List<T>::List(const List<T> &other)
+    : List(other.m_size) 
 {   
-    *this = l ; 
+    *this = other ; 
 }
 
 template <typename T>
@@ -143,11 +144,21 @@ void List<T>::PopBack()
 }
 
 template <typename T>
-List<T> &List<T>::operator = (const List<T> &l) 
+void List<T>::Clear()
 {
-    this->m_size = l.m_size ; 
-    Node<T> *temp = l.m_header->next ; 
-    for(int i = 0 ; i < l.m_size ; i++) 
+    while(!Empty())
+    {
+        PopBack() ; 
+    }
+    m_size = 0 ; 
+}
+
+template <typename T>
+List<T> &List<T>::operator = (const List<T> &other) 
+{
+    this->m_size = other.m_size ; 
+    Node<T> *temp = other.m_header->next ; 
+    for(int i = 0 ; i < other.m_size ; i++) 
     {
         Node<T> *new_node = new Node<T>(temp->data) ; 
         Node<T> *prev_node = m_trailer->prev ; 
@@ -156,3 +167,5 @@ List<T> &List<T>::operator = (const List<T> &l)
     }
     return *this ; 
 }
+
+
