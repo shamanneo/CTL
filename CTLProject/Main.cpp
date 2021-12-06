@@ -25,11 +25,10 @@ int main()
         l1.PushBack(3) ; 
         l1.PushBack(4) ; 
         List<int>::Iterator it = l1.Begin() ; 
-        it = l1.End() ; 
-
-        
-
-
+        for( ; it != l1.End() ; ++it)
+        {
+            *it = 10 ; 
+        }
     }
     _CrtDumpMemoryLeaks() ;
     return 0 ; 

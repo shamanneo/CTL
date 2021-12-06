@@ -17,10 +17,15 @@ class List
                 Node<T> *m_p ; 
             public : 
                 Iterator() = default ; 
-                Iterator(const Iterator &other) ;  
-                Iterator(Node<T> *n) ;
+                Iterator(const Iterator &other) 
+                {
+                    *this = other ; 
+                }
+                Iterator(Node<T> *n)
+                {
+                    m_p = n ; 
+                }
             public :    
-            /*
                 Iterator &operator ++ () 
                 {
                     m_p = m_p->next ; 
@@ -34,17 +39,10 @@ class List
                 {
                     return (this->m_p == other.m_p) ? false : true ; 
                 }
-                Iterator &operator = (const Iterator &other) 
-                {
-                    m_p = new Node<T> ; 
-                    *m_p = *other.m_p ; 
-                    return *this ; 
-                }
                 T &operator * ()
                 {
                     return m_p->data ; 
                 }
-                */
         } ; 
     public :
         explicit List(int size = 0) ;
@@ -214,17 +212,7 @@ List<T> &List<T>::operator = (const List<T> &other)
     return *this ; 
 }
 
-template<typename T>
-List<T>::Iterator::Iterator(const Iterator &other)
-{
-    *this = other ; 
-}
 
-template <typename T>
-List<T>::Iterator::Iterator(Node<T> *n)
-{
-    m_p = n ; 
-}
 
 
 
