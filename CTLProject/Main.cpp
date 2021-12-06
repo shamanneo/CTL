@@ -1,19 +1,35 @@
 #include <iostream>
-#include "Deque.h"
-#include <list>
+#include <string>
+#include "List.h"
+
+using namespace std ; 
+class foo
+{
+    private :
+        int m_i ;
+        string m_s ;
+    public :
+        foo(int i, string s) 
+            : m_i(i), m_s(s)
+        {
+
+        }
+} ; 
 
 int main()
 {
     {
-        std::list<int> l1 ; 
-        l1.push_back(1) ; 
-        l1.push_back(2) ; 
-        l1.push_back(3) ; 
-        std::list<int>::iterator it ; 
-        it = l1.begin() ; 
+        List<int> l1 ; 
+        l1.PushBack(1) ; 
+        l1.PushBack(2) ; 
+        l1.PushBack(3) ; 
+        l1.PushBack(4) ; 
+        List<int>::Iterator it = l1.Begin() ; 
+        it = l1.End() ; 
+
         
-        int i1 = *it ; 
-        *it = 444 ; 
+
+
     }
     _CrtDumpMemoryLeaks() ;
     return 0 ; 

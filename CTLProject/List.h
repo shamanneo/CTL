@@ -17,14 +17,34 @@ class List
                 Node<T> *m_p ; 
             public : 
                 Iterator() = default ; 
-                //Iterator(const Iterator &it) ;
-                Iterator(const Node<T> &n) ;
+                Iterator(const Iterator &other) ;  
+                Iterator(Node<T> *n) ;
             public :    
-                Iterator &operator ++ () ; 
-                bool operator == (const Iterator &other) ; 
-                bool operator != (const Iterator &other) ; 
-                //Iterator &operator = (const Iterator &other) ; 
-                T &operator * () ; 
+            /*
+                Iterator &operator ++ () 
+                {
+                    m_p = m_p->next ; 
+                    return *this ; 
+                }
+                bool operator == (const Iterator &other) 
+                {
+                    return (this->m_p == other.m_p) ? true : false ; 
+                }
+                bool operator != (const Iterator &other) 
+                {
+                    return (this->m_p == other.m_p) ? false : true ; 
+                }
+                Iterator &operator = (const Iterator &other) 
+                {
+                    m_p = new Node<T> ; 
+                    *m_p = *other.m_p ; 
+                    return *this ; 
+                }
+                T &operator * ()
+                {
+                    return m_p->data ; 
+                }
+                */
         } ; 
     public :
         explicit List(int size = 0) ;
@@ -42,8 +62,16 @@ class List
         void PopBack() ; 
         void Clear() ; 
         List &operator = (const List<T> &other) ; 
-        List<T>::Iterator Begin() const ; 
-        List<T>::Iterator End() const ; 
+        List<T>::Iterator Begin() const 
+        {
+            Iterator it(m_header->next) ; 
+            return it ;
+        }
+        List<T>::Iterator End() const
+        {
+            Iterator it(m_trailer) ; 
+            return it ;
+        }
 } ; 
 
 template <typename T>
@@ -186,61 +214,18 @@ List<T> &List<T>::operator = (const List<T> &other)
     return *this ; 
 }
 
-/*
-template <typename T>
-List<T>::Iterator List<T>::Begin() const 
+template<typename T>
+List<T>::Iterator::Iterator(const Iterator &other)
 {
-    List<T>::Iterator it(m_header->next) ; 
-    return it ;
+    *this = other ; 
 }
 
 template <typename T>
-List<T>::Iterator List<T>::End() const 
+List<T>::Iterator::Iterator(Node<T> *n)
 {
-    List<T>::Iterator it(m_trailer) ; 
-    return it ;
-}
-
-template <typename T>
-List<T>::Iterator::Iterator(const Node<T> &n)
-{
-    this->m_p = &n ; 
+    m_p = n ; 
 }
 
 
-template <typename T>
-List<T>::Iterator &List<T>::Iterator::operator ++ () 
-{
-    m_p = m_p->next ; 
-    return *this ; 
-}
-
-
-template <typename T>
-bool List<T>::Iterator::operator == (const Iterator &other) 
-{
-    return (this->m_p == other.m_p) ? true : false ; 
-}
-
-template <typename T>
-bool List<T>::Iterator::operator != (const Iterator &other) 
-{
-    return (this->m_p == other.m_p) ? false : true ; 
-}
-
-
-template <typename T>
-List<T>::Iterator &List<T>::Iterator::operator = (const Iterator &other) 
-{
-    
-}
-
-
-template <typename T>
-T &List<T>::Iterator::operator * () 
-{
-    return m_p->data ; 
-}
-*/
 
 
